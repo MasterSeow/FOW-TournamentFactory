@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">FOW TF</string>
+    <string name="date">Date:</string>
+    <string name="tournamenttype">Tournamenttype:</string>
+    <string name="rounds">Rounds:</string>
+    <string name="participants">Participants:</string>
+    <string name="new_btn">new</string>
+    <string name="submit">Submit</string>
+    <string name="firstname">Firstname:</string>
+    <string name="lastname">Lastname:</string>
+    <string name="fow_id">FOW-ID:</string>
+    <string name="missing_id">(no ID)</string>
+    <string-array name="tournamentType">
+        <item>Local</item>
+        <item>Regional</item>
+        <item>National</item>
+        <item>International</item>
+        <item>Global</item>
+    </string-array>
+</resources>

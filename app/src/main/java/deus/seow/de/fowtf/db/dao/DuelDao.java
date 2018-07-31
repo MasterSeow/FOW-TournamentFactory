@@ -1,0 +1,43 @@
+package deus.seow.de.fowtf.db.dao;
+
+import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
+import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
+import android.arch.persistence.room.Query;
+
+import java.util.List;
+
+import deus.seow.de.fowtf.db.table.Duel;
+import deus.seow.de.fowtf.db.table.Player;
+
+@Dao
+public interface DuelDao {
+
+    @Query("SELECT * FROM duel")
+    List<Duel> getAll();
+
+    @Query("SELECT COUNT(*) from duel WHERE tournamentId = :tournamentId AND round = :round")
+    int countDuels(int tournamentId, int round);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(Duel duel);
+
+    @Insert
+    void insertAll(Duel... duels);
+
+    @Delete
+    void delete(Duel duel);
+
+    @Query("SELECT * from duel WHERE tournamentId = :tournamentId AND round = :round")
+    List<Duel> getRound(int tournamentId, int round);
+
+    @Query("SELECT id,firstname,lastname FROM duel LEFT JOIN player ON playerOneId = id WHERE tournamentId = :tournamentId AND round = :round AND playerOneId = :playerId")
+    Player getPlayer1(int tournamentId, int round, String playerId);
+
+    @Query("SELECT id,firstname,lastname FROM duel LEFT JOIN player ON playerTwoId = id WHERE tournamentId = :tournamentId AND round = :round AND playerTwoId = :playerId")
+    Player getPlayer2(int tournamentId, int round, String playerId);
+
+    @Query("SELECT round FROM duel WHERE (playerOneId = :playerId OR playerTwoId = :playerId) AND NOT(winner = :playerId OR winner = 'draw' OR winner = 'none')AND tournamentId = :tournamentId")
+    List<Integer> getLostRounds(String playerId, int tournamentId);
+}
