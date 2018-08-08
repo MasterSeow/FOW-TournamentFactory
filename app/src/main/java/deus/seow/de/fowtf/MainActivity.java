@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createDummyData(AppDatabase appDatabase) {
+        appDatabase.userDao().insert(new Player("1","Frei","Los"));
         appDatabase.userDao().insert(new Player("10","Dummy","Dummy"));
         appDatabase.userDao().insert(new Player("11","Dummy2","Dummy2"));
         appDatabase.tournamentDao().insert(new Tournament(1,"Local","22.07.2018"));

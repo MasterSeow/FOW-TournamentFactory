@@ -54,6 +54,6 @@ public class Util {
                 return true;
         }
 
-        throw new IllegalStateException();
+        return true;
     }
 }

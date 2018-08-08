@@ -14,7 +14,7 @@ import deus.seow.de.fowtf.db.table.Player;
 @Dao
 public interface PlayerDao {
 
-    @Query("SELECT * FROM Player")
+    @Query("SELECT * FROM Player WHERE NOT id = '1'")
     List<Player> getAll();
 
     @Query("SELECT * FROM Player ORDER BY id DESC LIMIT 1")
@@ -23,7 +23,7 @@ public interface PlayerDao {
     @Query("SELECT * FROM Player where id = :id")
     Player findById(String id);
 
-    @Query("SELECT COUNT(*) from Player")
+    @Query("SELECT COUNT(*) from Player WHERE NOT id = '1'")
     int countUsers();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

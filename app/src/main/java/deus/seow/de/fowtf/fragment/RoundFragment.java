@@ -1,5 +1,6 @@
 package deus.seow.de.fowtf.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,14 +11,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.Collections;
 import java.util.List;
 
+import deus.seow.de.fowtf.Constants;
+import deus.seow.de.fowtf.MainActivity;
 import deus.seow.de.fowtf.R;
 import deus.seow.de.fowtf.adapter.PlayerAdapter;
 import deus.seow.de.fowtf.adapter.RoundAdapter;
+import deus.seow.de.fowtf.db.AppDatabase;
+import deus.seow.de.fowtf.db.dao.DuelDao;
+import deus.seow.de.fowtf.db.table.Duel;
 import deus.seow.de.fowtf.db.table.Player;
 
-public class RoundFragment extends Fragment implements PlayerAdapter.Callback{
+public class RoundFragment extends Fragment{
 
     public static final String TAG = RoundFragment.class.getSimpleName();
     private int round = 1;
@@ -27,6 +34,7 @@ public class RoundFragment extends Fragment implements PlayerAdapter.Callback{
     private Button next;
     private RoundAdapter roundAdapter;
     private List<Player> players;
+    private DuelDao duelDao;
 
     public static RoundFragment newInstance(int tournamentId, int maxRounds, List<Player> players){
         RoundFragment rf = new RoundFragment();
@@ -45,7 +53,8 @@ public class RoundFragment extends Fragment implements PlayerAdapter.Callback{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        duelDao = AppDatabase.getAppDatabase(getContext()).duelDao();
+        generateFirstMatches();
         roundAdapter = new RoundAdapter(getContext(),tournamentId,round);
 
         previous = view.findViewById(R.id.prev);
@@ -83,13 +92,19 @@ public class RoundFragment extends Fragment implements PlayerAdapter.Callback{
             next.setEnabled(false);
     }
 
-    @Override
-    public void addPlayer(Player player) {
-        players.add(player);
-    }
-
-    @Override
-    public void removePlayer(Player player) {
-        players.remove(player);
+    private void generateFirstMatches(){
+        Collections.shuffle(players);
+        Player firstPlayer = null;
+        for (Player player : players) {
+            if(firstPlayer == null){
+                firstPlayer = player;
+            }else {
+                duelDao.insert(new Duel(tournamentId,round,firstPlayer.getId(),player.getId(),Constants.NO_PLAYER_WON));
+                firstPlayer = null;
+            }
+        }
+        if(firstPlayer != null){
+            duelDao.insert(new Duel(tournamentId,round,firstPlayer.getId(),"1", Constants.PLAYER_ONE_WON));
+        }
     }
 }

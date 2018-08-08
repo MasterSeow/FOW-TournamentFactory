@@ -55,7 +55,6 @@ public class CreationFragment extends Fragment {
         }
 
     };
-    private List<Player> players;
 
     @Nullable
     @Override
@@ -67,7 +66,6 @@ public class CreationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         tournamentDao = AppDatabase.getAppDatabase(getContext()).tournamentDao();
-        players = new ArrayList<>();
         Button buttonNew = view.findViewById(R.id.button_new);
         buttonNew.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,13 +126,14 @@ public class CreationFragment extends Fragment {
         });
 
         ListView playerList = view.findViewById(R.id.list);
-        playerList.setAdapter(new PlayerAdapter(getContext()));
+        final PlayerAdapter playerAdapter = new PlayerAdapter(getContext());
+        playerList.setAdapter(playerAdapter);
         Button submit =view.findViewById(R.id.submit);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 tournamentDao.insert(new Tournament(type,dateString));
-                getFragmentManager().beginTransaction().replace(R.id.fullscreenContainer,RoundFragment.newInstance(tournamentDao.getLast().getId(), numberOfRounds,players),RoundFragment.TAG).commit();
+                getFragmentManager().beginTransaction().replace(R.id.fullscreenContainer,RoundFragment.newInstance(tournamentDao.getLast().getId(), numberOfRounds,playerAdapter.getChosenPlayers()),RoundFragment.TAG).commit();
             }
         });
     }

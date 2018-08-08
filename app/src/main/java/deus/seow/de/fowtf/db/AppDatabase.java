@@ -13,7 +13,7 @@ import deus.seow.de.fowtf.db.table.Player;
 import deus.seow.de.fowtf.db.table.Tournament;
 
 
-@Database(entities = {Player.class,Tournament.class, Duel.class}, version =2)
+@Database(entities = {Player.class,Tournament.class, Duel.class}, version =3)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
