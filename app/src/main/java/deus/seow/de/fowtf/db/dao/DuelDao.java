@@ -40,4 +40,16 @@ public interface DuelDao {
 
     @Query("SELECT round FROM duel WHERE (playerOneId = :playerId OR playerTwoId = :playerId) AND NOT(winner = :playerId OR winner = 'draw' OR winner = 'none')AND tournamentId = :tournamentId")
     List<Integer> getLostRounds(String playerId, int tournamentId);
+
+    @Query("SELECT COUNT(*) FROM duel WHERE tournamentId = :tournamentId AND(playerOneId = :playerId OR playerTwoId = :playerId) AND winner = :playerId")
+    int getWonRoundCount(String playerId, int tournamentId);
+
+    @Query("SELECT COUNT(*) FROM duel WHERE tournamentId = :tournamentId AND(playerOneId = :playerId OR playerTwoId = :playerId) AND winner = 'draw'")
+    int getDrawRoundCount(String playerId, int tournamentId);
+
+    @Query("SELECT COUNT(DISTINCT round) FROM duel WHERE tournamentId = :tournamentId")
+    int getRoundCount(int tournamentId);
+
+//    @Query("SELECT CASE playerOneId WHEN :playerId THEN(SELECT id,firstname,lastname FROM duel LEFT JOIN player ON playerTwoId = id WHERE tournamentId = :tournamentId AND round = :round) ELSE (SELECT id,firstname,lastname FROM duel LEFT JOIN player ON playerOneId = id WHERE tournamentId = :tournamentId AND round = :round)END FROM duel ")
+//    Player getOpponent(int tournamentId, int round, String playerId);
 }

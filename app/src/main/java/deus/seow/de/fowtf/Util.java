@@ -10,15 +10,16 @@ import deus.seow.de.fowtf.db.table.Tournament;
 public class Util {
 
     public static String calculateTiebreak(Player player, Tournament tournament, DuelDao duelDao){
-        String aa = getMatchpoints();
+        String aa = getMatchpoints(duelDao.getWonRoundCount(player.getId(),tournament.getId()),duelDao.getDrawRoundCount(player.getId(),tournament.getId()));
         String bbb = getOpponentsWinrate();
         String ccc = getOpponentsOpponentsWinrate();
         String ddd = getSumOfLostRounds(duelDao.getLostRounds(player.getId(),tournament.getId()));
         //TODO
         return aa+bbb+ccc+ddd;
     }
-    private static String getMatchpoints(){
-        return "";
+    private static String getMatchpoints(int wonCount, int drawCount){
+        int result = 3* wonCount + drawCount;
+        return String.valueOf(result);
     }
 
     private static String getOpponentsWinrate(){
