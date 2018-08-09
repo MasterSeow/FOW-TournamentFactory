@@ -7,6 +7,7 @@ currently implemented :
 - tournament creation 
 - adding new players to DB
 - first round random match-making
+- match making with results
 - winner selection for rounds
 - tournament-overview
 
