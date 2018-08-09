@@ -9,12 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.Collections;
 import java.util.List;
 
 import deus.seow.de.fowtf.Constants;
 import deus.seow.de.fowtf.R;
+import deus.seow.de.fowtf.Util;
 import deus.seow.de.fowtf.adapter.RoundAdapter;
 import deus.seow.de.fowtf.db.AppDatabase;
 import deus.seow.de.fowtf.db.dao.DuelDao;
@@ -69,14 +71,25 @@ public class RoundFragment extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                round++;
-                roundAdapter.setRound(round);
-                updateButtons();
+                int noResults =duelDao.countDuelsWithoutResult(tournamentId,round);
+                if(noResults==0) {
+                    round++;
+                    generateRound();
+                    roundAdapter.setRound(round);
+                    updateButtons();
+                }else{
+                    Toast.makeText(getContext(), String.valueOf(noResults)+" duels left without result",Toast.LENGTH_SHORT).show();
+                }
             }
         });
         updateButtons();
         ListView duelList = view.findViewById(R.id.list);
         duelList.setAdapter(roundAdapter);
+    }
+
+    private void generateRound() {
+        players = Util.sortByTB(players,tournamentId,duelDao);
+       generateMatches(players);
     }
 
     private void updateButtons() {

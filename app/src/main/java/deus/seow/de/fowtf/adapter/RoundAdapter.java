@@ -148,19 +148,4 @@ public class RoundAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public class MyOnClickListener implements View.OnClickListener
-    {
-
-        String winner;
-        public MyOnClickListener(String winner) {
-            this.winner = winner;
-        }
-
-        @Override
-        public void onClick(View v)
-        {
-            //read your lovely variable
-        }
-
-    }
 }

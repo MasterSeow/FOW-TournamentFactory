@@ -32,6 +32,9 @@ public interface DuelDao {
     @Query("SELECT * from duel WHERE tournamentId = :tournamentId AND round = :round")
     List<Duel> getRound(int tournamentId, int round);
 
+    @Query("SELECT COUNT(*) from duel WHERE tournamentId = :tournamentId AND round = :round AND winner ='none'")
+    int countDuelsWithoutResult(int tournamentId, int round);
+
     @Query("SELECT id,firstname,lastname FROM duel LEFT JOIN player ON playerOneId = id WHERE tournamentId = :tournamentId AND round = :round AND playerOneId = :playerId")
     Player getPlayer1(int tournamentId, int round, String playerId);
 
@@ -50,6 +53,9 @@ public interface DuelDao {
     @Query("SELECT COUNT(DISTINCT round) FROM duel WHERE tournamentId = :tournamentId")
     int getRoundCount(int tournamentId);
 
-//    @Query("SELECT CASE playerOneId WHEN :playerId THEN(SELECT id,firstname,lastname FROM duel LEFT JOIN player ON playerTwoId = id WHERE tournamentId = :tournamentId AND round = :round) ELSE (SELECT id,firstname,lastname FROM duel LEFT JOIN player ON playerOneId = id WHERE tournamentId = :tournamentId AND round = :round)END FROM duel ")
-//    Player getOpponent(int tournamentId, int round, String playerId);
+    @Query("SELECT id,firstname,lastname FROM duel LEFT JOIN player ON CASE playerOneId WHEN :playerId THEN playerTwoId = id ELSE playerOneId = id END WHERE tournamentId = :tournamentId AND round = :round")
+    Player getOpponent(int tournamentId, int round, String playerId);
+
+    @Query("SELECT id,firstname,lastname FROM duel LEFT JOIN player ON CASE playerOneId WHEN :playerId THEN playerTwoId = id ELSE playerOneId = id END WHERE tournamentId = :tournamentId ")
+    List<Player> getOpponents(int tournamentId, String playerId);
 }
