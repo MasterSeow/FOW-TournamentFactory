@@ -8,6 +8,7 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
+import deus.seow.de.fowtf.db.table.Player;
 import deus.seow.de.fowtf.db.table.Tournament;
 
 @Dao
@@ -27,6 +28,9 @@ public interface TournamentDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Tournament tournament);
+
+    @Query("SELECT id,firstname,lastname FROM duel LEFT JOIN player ON playerOneId = id WHERE tournamentId = :tournamentId AND round = 1 UNION SELECT id,firstname,lastname FROM duel LEFT JOIN player ON playerTwoId = id WHERE tournamentId = :tournamentId AND round = 1")
+    List<Player> getParticipants(int tournamentId);
 
     @Insert
     void insertAll(Tournament... tournaments);

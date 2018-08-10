@@ -7,6 +7,7 @@
     android:layout_weight="0"
     android:text="Round 1:"
     android:gravity="center"
+    android:id="@+id/round"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />
     <ListView

@@ -69,6 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:gravity="end"
+            android:progress="4"
             android:inputType="number"
             android:max="9" />
     </RelativeLayout>

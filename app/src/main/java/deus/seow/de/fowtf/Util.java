@@ -36,13 +36,12 @@ public class Util {
                 }
                 sortedPlayers.add(highest);
                 players.remove(highest);
-                System.out.println(highestTB);
             }
 
         return sortedPlayers;
     }
 
-    private static String calculateTiebreak(String playerId, int tournamentId, @NonNull DuelDao duelDao) {
+    public static String calculateTiebreak(String playerId, int tournamentId, @NonNull DuelDao duelDao) {
         String aa = getMatchpoints(duelDao.getWonRoundCount(playerId, tournamentId), duelDao.getDrawRoundCount(playerId, tournamentId));
         String bbb = getOpponentsWinrate(playerId, tournamentId, duelDao);
         String ccc = getOpponentsOpponentsWinrate(duelDao.getOpponent(tournamentId, duelDao.getRoundCount(tournamentId), playerId), tournamentId, duelDao);

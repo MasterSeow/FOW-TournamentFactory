@@ -15,8 +15,8 @@ import deus.seow.de.fowtf.db.table.Player;
 @Dao
 public interface DuelDao {
 
-    @Query("SELECT * FROM duel")
-    List<Duel> getAll();
+    @Query("SELECT * FROM duel WHERE tournamentId = :tournamentId")
+    List<Duel> getAll(int tournamentId);
 
     @Query("SELECT COUNT(*) from duel WHERE tournamentId = :tournamentId AND round = :round")
     int countDuels(int tournamentId, int round);

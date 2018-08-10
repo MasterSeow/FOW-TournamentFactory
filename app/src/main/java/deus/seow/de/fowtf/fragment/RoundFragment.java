@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import deus.seow.de.fowtf.Constants;
@@ -36,6 +38,7 @@ public class RoundFragment extends Fragment {
     private Button next;
     private RoundAdapter roundAdapter;
     private DuelDao duelDao;
+    private TextView roundText;
 
     public static RoundFragment newInstance(int tournamentId, int maxRounds, List<Player> players) {
         RoundFragment rf = new RoundFragment();
@@ -58,6 +61,9 @@ public class RoundFragment extends Fragment {
         Collections.shuffle(players);
         generateMatches(players);
 
+        roundText = view.findViewById(R.id.round);
+        roundText.setText(String.format(Locale.getDefault(),"Round %d:", round));
+
         roundAdapter = new RoundAdapter(getContext(), tournamentId, round);
 
         previous = view.findViewById(R.id.prev);
@@ -65,6 +71,7 @@ public class RoundFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 round--;
+                roundText.setText(String.format(Locale.getDefault(),"Round %d:", round));
                 roundAdapter.setRound(round);
                 updateButtons();
             }
@@ -76,6 +83,7 @@ public class RoundFragment extends Fragment {
                 int noResults = duelDao.countDuelsWithoutResult(tournamentId, round);
                 if (noResults == 0) {
                     round++;
+                    roundText.setText(String.format(Locale.getDefault(),"Round %d:", round));
                     generateRound();
                     roundAdapter.setRound(round);
                     updateButtons();
@@ -100,10 +108,33 @@ public class RoundFragment extends Fragment {
         else
             previous.setEnabled(false);
 
-        if (round < maxRounds)
-            next.setEnabled(true);
-        else
-            next.setEnabled(false);
+        if (round < maxRounds){
+            next.setText("Next");
+            next.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int noResults = duelDao.countDuelsWithoutResult(tournamentId, round);
+                    if (noResults == 0) {
+                        round++;
+                        roundText.setText(String.format(Locale.getDefault(),"Round %d:", round));
+                        generateRound();
+                        roundAdapter.setRound(round);
+                        updateButtons();
+                    } else {
+                        Toast.makeText(getContext(), String.valueOf(noResults) + " duels left without result", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+        else{
+            next.setText("Finish");
+            next.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getFragmentManager().beginTransaction().replace(R.id.fullscreenContainer,ResultFragment.newInstance(tournamentId),ResultFragment.TAG).commit();
+                }
+            });
+        }
     }
 
     private void generateMatches(List<Player> playersInOrder) {
