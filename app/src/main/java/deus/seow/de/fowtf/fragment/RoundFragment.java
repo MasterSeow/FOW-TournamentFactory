@@ -11,8 +11,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import deus.seow.de.fowtf.Constants;
 import deus.seow.de.fowtf.R;
@@ -32,13 +34,13 @@ public class RoundFragment extends Fragment {
     private Button previous;
     private Button next;
     private RoundAdapter roundAdapter;
-    private List<Player> players;
+    private final List<Player> players = new ArrayList<>();
     private DuelDao duelDao;
 
     public static RoundFragment newInstance(int tournamentId, int maxRounds, List<Player> players) {
         RoundFragment rf = new RoundFragment();
         rf.maxRounds = maxRounds;
-        rf.players = players;
+        rf.players.addAll(players);
         rf.tournamentId = tournamentId;
         return rf;
     }
@@ -88,8 +90,8 @@ public class RoundFragment extends Fragment {
     }
 
     private void generateRound() {
-        players = Util.sortByTB(players,tournamentId,duelDao);
-       generateMatches(players);
+        if(duelDao.getRoundCount(tournamentId)<round)
+       generateMatches( Util.sortByTB(new CopyOnWriteArrayList<>(players),tournamentId,duelDao));
     }
 
     private void updateButtons() {
