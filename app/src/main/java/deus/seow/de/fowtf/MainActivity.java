@@ -23,11 +23,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void createDummyData(AppDatabase appDatabase) {
         appDatabase.userDao().insert(new Player("1","Frei","Los"));
-        appDatabase.userDao().insert(new Player("10","Dummy","Dummy"));
-        appDatabase.userDao().insert(new Player("11","Dummy2","Dummy2"));
-        appDatabase.tournamentDao().insert(new Tournament(1,"Local","22.07.2018"));
-        appDatabase.duelDao().insert(new Duel(1,1,"10","11","none"));
 
+        appDatabase.userDao().insert(new Player("10","Christian","Redox"));
+        appDatabase.userDao().insert(new Player("11","Nico","Fenchel"));
+        appDatabase.userDao().insert(new Player("12","Jonathan","Dante"));
+        appDatabase.userDao().insert(new Player("13","Thomas","Brunnen"));
+        appDatabase.userDao().insert(new Player("14","Felix","Weser"));
+        appDatabase.userDao().insert(new Player("15","Vieh","Tee"));
     }
 
 
