@@ -46,7 +46,6 @@ public class Util {
         String bbb = getOpponentsWinrate(playerId, tournamentId, duelDao);
         String ccc = getOpponentsOpponentsWinrate(duelDao.getOpponent(tournamentId, duelDao.getRoundCount(tournamentId), playerId), tournamentId, duelDao);
         String ddd = getSumOfLostRounds(duelDao.getLostRounds(playerId, tournamentId));
-        //TODO
         return aa + bbb + ccc + ddd;
     }
 

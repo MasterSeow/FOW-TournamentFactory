@@ -106,6 +106,7 @@ public class CreationFragment extends Fragment {
 
             }
         });
+        rounds.setProgress(3);
 
         final Spinner spinner = view.findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter;

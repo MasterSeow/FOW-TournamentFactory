@@ -1,6 +1,6 @@
-# FOW-TournamentFactory
+# TournamentFactory
 
-This is going to be an app to manage 'Force of Will' Tournaments
+This is going to be an app to manage Cardgame Tournaments
 
 currently implemented :
 - dummy layout (will definitely be changed when the basic functions are given)
@@ -10,10 +10,10 @@ currently implemented :
 - match making with results
 - winner selection for rounds
 - tournament-overview
+- tiebreak-calculation
+- result-screens
 
 future implementations :
-- tiebreak-calculation (halfway done)
-- result-screen/s
 - editing entries afterwards which calculates everything new
 - options for dropping and disqualified players 
 - option menus

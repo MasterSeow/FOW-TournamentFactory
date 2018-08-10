@@ -22,6 +22,9 @@ public interface DuelDao {
     @Query("SELECT COUNT(*) from duel WHERE tournamentId = :tournamentId AND round = :round")
     int countDuels(int tournamentId, int round);
 
+    @Query("SELECT * from duel WHERE tournamentId = :tournamentId AND round = :round AND ((playerTwoId = :playerTwoId AND playerOneId = :playerOneId)OR(playerOneId = :playerTwoId AND playerTwoId = :playerOneId))")
+    Duel getDuel(int tournamentId, int round, String playerOneId, String playerTwoId);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Duel duel);
 
@@ -54,6 +57,9 @@ public interface DuelDao {
 
     @Query("SELECT COUNT(DISTINCT round) FROM duel WHERE tournamentId = :tournamentId")
     int getRoundCount(int tournamentId);
+
+    @Query("SELECT id,firstname,lastname FROM duel LEFT JOIN player ON playerOneId = id WHERE tournamentId = :tournamentId AND playerTwoId = '1'")
+    List<Player> getPlayersWithFreeWins(int tournamentId);
 
     @Query("SELECT id,firstname,lastname FROM duel LEFT JOIN player ON CASE playerOneId WHEN :playerId THEN playerTwoId = id ELSE playerOneId = id END WHERE tournamentId = :tournamentId AND round = :round AND(playerOneId = :playerId OR playerTwoId = :playerId)")
     Player getOpponent(int tournamentId, int round, String playerId);

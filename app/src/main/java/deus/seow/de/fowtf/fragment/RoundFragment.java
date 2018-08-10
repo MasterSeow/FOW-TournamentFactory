@@ -138,6 +138,29 @@ public class RoundFragment extends Fragment {
     }
 
     private void generateMatches(List<Player> playersInOrder) {
+        List<Player> cow = new CopyOnWriteArrayList<>(playersInOrder);
+
+        if (cow.size() % 2 == 1) {
+            Player freewinner = placeFreeWin(new ArrayList<>(playersInOrder));
+            cow.remove(freewinner);
+        }
+        generateMatchesByRanking(cow);
+    }
+
+    private Player placeFreeWin(List<Player> players) {
+        List<Player> cow = new CopyOnWriteArrayList<>(players);
+        for (Player playerwfw : duelDao.getPlayersWithFreeWins(tournamentId)) {
+            for (Player player : cow) {
+                if (player.getId().equals(playerwfw.getId()))
+                    cow.remove(player);
+            }
+        }
+        Player winner = cow.size() > 0 ? cow.get(cow.size() - 1) : players.get(players.size() - 1);
+        duelDao.insert(new Duel(tournamentId, round, winner.getId(), "1", winner.getId()));
+        return winner;
+    }
+
+    private void generateMatchesByRanking(List<Player> playersInOrder) {
         Player firstPlayer = null;
         for (Player player : playersInOrder) {
             if (firstPlayer == null) {
@@ -147,8 +170,6 @@ public class RoundFragment extends Fragment {
                 firstPlayer = null;
             }
         }
-        if (firstPlayer != null) {
-            duelDao.insert(new Duel(tournamentId, round, firstPlayer.getId(), "1", firstPlayer.getId()));
-        }
+
     }
 }
