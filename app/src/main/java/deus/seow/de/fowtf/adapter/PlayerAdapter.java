@@ -64,17 +64,17 @@ public class PlayerAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(chosenPlayers.contains(player)) {
+                if (chosenPlayers.contains(player)) {
                     chosenPlayers.remove(player);
                     view.setBackgroundColor(Color.WHITE);
-                }else {
+                } else {
                     chosenPlayers.add(player);
                     view.setBackgroundColor(Color.GREEN);
                 }
             }
         });
 
-        if(chosenPlayers.contains(player))
+        if (chosenPlayers.contains(player))
             view.setBackgroundColor(Color.GREEN);
         else
             view.setBackgroundColor(Color.WHITE);

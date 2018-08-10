@@ -28,13 +28,13 @@ import deus.seow.de.fowtf.db.table.Player;
 public class RoundFragment extends Fragment {
 
     public static final String TAG = RoundFragment.class.getSimpleName();
+    private final List<Player> players = new ArrayList<>();
     private int round = 1;
     private int tournamentId;
     private int maxRounds;
     private Button previous;
     private Button next;
     private RoundAdapter roundAdapter;
-    private final List<Player> players = new ArrayList<>();
     private DuelDao duelDao;
 
     public static RoundFragment newInstance(int tournamentId, int maxRounds, List<Player> players) {
@@ -73,14 +73,14 @@ public class RoundFragment extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int noResults =duelDao.countDuelsWithoutResult(tournamentId,round);
-                if(noResults==0) {
+                int noResults = duelDao.countDuelsWithoutResult(tournamentId, round);
+                if (noResults == 0) {
                     round++;
                     generateRound();
                     roundAdapter.setRound(round);
                     updateButtons();
-                }else{
-                    Toast.makeText(getContext(), String.valueOf(noResults)+" duels left without result",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), String.valueOf(noResults) + " duels left without result", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -90,8 +90,8 @@ public class RoundFragment extends Fragment {
     }
 
     private void generateRound() {
-        if(duelDao.getRoundCount(tournamentId)<round)
-       generateMatches( Util.sortByTB(new CopyOnWriteArrayList<>(players),tournamentId,duelDao));
+        if (duelDao.getRoundCount(tournamentId) < round)
+            generateMatches(Util.sortByTB(new CopyOnWriteArrayList<>(players), tournamentId, duelDao));
     }
 
     private void updateButtons() {

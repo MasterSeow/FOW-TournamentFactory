@@ -5,10 +5,10 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.support.annotation.NonNull;
 
-@Entity(tableName = "duel", primaryKeys = {"tournamentId", "round","playerOneId", "playerTwoId"},
-        foreignKeys = {@ForeignKey(entity = Player.class, parentColumns = "id",childColumns = "playerOneId"),
-                @ForeignKey(entity = Player.class, parentColumns = "id",childColumns = "playerTwoId"),
-                @ForeignKey(entity = Tournament.class, parentColumns = "id",childColumns = "tournamentId")}
+@Entity(tableName = "duel", primaryKeys = {"tournamentId", "round", "playerOneId", "playerTwoId"},
+        foreignKeys = {@ForeignKey(entity = Player.class, parentColumns = "id", childColumns = "playerOneId"),
+                @ForeignKey(entity = Player.class, parentColumns = "id", childColumns = "playerTwoId"),
+                @ForeignKey(entity = Tournament.class, parentColumns = "id", childColumns = "tournamentId")}
 )
 public class Duel {
 
@@ -55,7 +55,7 @@ public class Duel {
 
     @Ignore
     @Override
-    public String toString(){
-        return tournamentId + " "+round + " "+playerOneId+ " "+ playerTwoId + " " +winner;
+    public String toString() {
+        return tournamentId + " " + round + " " + playerOneId + " " + playerTwoId + " " + winner;
     }
 }

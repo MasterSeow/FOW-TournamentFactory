@@ -14,30 +14,30 @@ public class Util {
     public static List<Player> sortByTB(@NonNull List<Player> players, int tournamentId, @NonNull DuelDao duelDao) {
         List<Player> sortedPlayers = new ArrayList<>();
 
-        HashMap<Player,String> tieBreakList = new HashMap<>();
+        HashMap<Player, String> tieBreakList = new HashMap<>();
         for (Player player : players) {
-            tieBreakList.put(player,calculateTiebreak(player.getId(),tournamentId,duelDao));
+            tieBreakList.put(player, calculateTiebreak(player.getId(), tournamentId, duelDao));
         }
 
-        for (int i=0;i<tieBreakList.size();i++)
+        for (int i = 0; i < tieBreakList.size(); i++)
 
-        while (players.size() > 0) {
-            Player highest = null;
-            String highestTB = null;
-            for (Player player : players) {
-                if (highest == null)
-                    highest = player;
-                if (highestTB == null)
-                    highestTB = tieBreakList.get(player);
-                if (compareTiebreak(tieBreakList.get(player), highestTB)) {
-                    highest = player;
-                    highestTB = tieBreakList.get(player);
+            while (players.size() > 0) {
+                Player highest = null;
+                String highestTB = null;
+                for (Player player : players) {
+                    if (highest == null)
+                        highest = player;
+                    if (highestTB == null)
+                        highestTB = tieBreakList.get(player);
+                    if (compareTiebreak(tieBreakList.get(player), highestTB)) {
+                        highest = player;
+                        highestTB = tieBreakList.get(player);
+                    }
                 }
+                sortedPlayers.add(highest);
+                players.remove(highest);
+                System.out.println(highestTB);
             }
-            sortedPlayers.add(highest);
-            players.remove(highest);
-            System.out.println(highestTB);
-        }
 
         return sortedPlayers;
     }

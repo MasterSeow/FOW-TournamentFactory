@@ -16,7 +16,7 @@ public class Tournament {
 
     @Ignore
     public Tournament(String type, String date) {
-        this(0,type,date);
+        this(0, type, date);
     }
 
     public Tournament(int id, String type, String date) {
@@ -25,7 +25,9 @@ public class Tournament {
         this.date = date;
     }
 
-    public int getId() {return id;}
+    public int getId() {
+        return id;
+    }
 
     public String getType() {
         return type;

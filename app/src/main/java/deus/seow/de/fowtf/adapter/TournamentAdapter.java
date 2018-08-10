@@ -10,8 +10,6 @@ import android.widget.TextView;
 import deus.seow.de.fowtf.R;
 import deus.seow.de.fowtf.db.AppDatabase;
 import deus.seow.de.fowtf.db.dao.TournamentDao;
-import deus.seow.de.fowtf.db.table.Duel;
-import deus.seow.de.fowtf.db.table.Player;
 import deus.seow.de.fowtf.db.table.Tournament;
 
 public class TournamentAdapter extends BaseAdapter {

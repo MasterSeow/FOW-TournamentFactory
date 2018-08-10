@@ -13,15 +13,10 @@ import deus.seow.de.fowtf.db.table.Player;
 import deus.seow.de.fowtf.db.table.Tournament;
 
 
-@Database(entities = {Player.class,Tournament.class, Duel.class}, version =3)
+@Database(entities = {Player.class, Tournament.class, Duel.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
-
-    public abstract PlayerDao userDao();
-    public abstract DuelDao duelDao();
-    public abstract TournamentDao tournamentDao();
-
 
     public static AppDatabase getAppDatabase(Context context) {
         if (INSTANCE == null) {
@@ -37,4 +32,10 @@ public abstract class AppDatabase extends RoomDatabase {
     public static void destroyInstance() {
         INSTANCE = null;
     }
+
+    public abstract PlayerDao userDao();
+
+    public abstract DuelDao duelDao();
+
+    public abstract TournamentDao tournamentDao();
 }

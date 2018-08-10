@@ -19,17 +19,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import deus.seow.de.fowtf.R;
 import deus.seow.de.fowtf.adapter.PlayerAdapter;
 import deus.seow.de.fowtf.db.AppDatabase;
 import deus.seow.de.fowtf.db.dao.TournamentDao;
-import deus.seow.de.fowtf.db.table.Player;
 import deus.seow.de.fowtf.db.table.Tournament;
 import deus.seow.de.fowtf.fragment.dialog.NewPlayerDialog;
 
@@ -59,7 +56,7 @@ public class CreationFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_creation,container,false);
+        return inflater.inflate(R.layout.fragment_creation, container, false);
     }
 
     @Override
@@ -70,7 +67,7 @@ public class CreationFragment extends Fragment {
         buttonNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new NewPlayerDialog().show(getFragmentManager(),NewPlayerDialog.TAG);
+                new NewPlayerDialog().show(getFragmentManager(), NewPlayerDialog.TAG);
             }
         });
         dateText = view.findViewById(R.id.date);
@@ -128,12 +125,12 @@ public class CreationFragment extends Fragment {
         ListView playerList = view.findViewById(R.id.list);
         final PlayerAdapter playerAdapter = new PlayerAdapter(getContext());
         playerList.setAdapter(playerAdapter);
-        Button submit =view.findViewById(R.id.submit);
+        Button submit = view.findViewById(R.id.submit);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tournamentDao.insert(new Tournament(type,dateString));
-                getFragmentManager().beginTransaction().replace(R.id.fullscreenContainer,RoundFragment.newInstance(tournamentDao.getLast().getId(), numberOfRounds,playerAdapter.getChosenPlayers()),RoundFragment.TAG).commit();
+                tournamentDao.insert(new Tournament(type, dateString));
+                getFragmentManager().beginTransaction().replace(R.id.fullscreenContainer, RoundFragment.newInstance(tournamentDao.getLast().getId(), numberOfRounds, playerAdapter.getChosenPlayers()), RoundFragment.TAG).commit();
             }
         });
     }

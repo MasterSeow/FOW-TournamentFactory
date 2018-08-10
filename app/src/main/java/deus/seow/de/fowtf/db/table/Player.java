@@ -1,8 +1,6 @@
 package deus.seow.de.fowtf.db.table;
 
-import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -23,7 +21,9 @@ public class Player {
         this.lastname = lastname;
     }
 
-    public String getId() {return id;}
+    public String getId() {
+        return id;
+    }
 
     public String getFirstname() {
         return firstname;

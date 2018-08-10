@@ -119,11 +119,11 @@ public class NewPlayerDialog extends DialogFragment {
         PlayerDao playerDao = AppDatabase.getAppDatabase(getContext()).userDao();
         String pseudo = "";
         boolean foundPseudoId = false;
-        int idCounter=3;
-        while(!foundPseudoId){
+        int idCounter = 3;
+        while (!foundPseudoId) {
             idCounter++;
             pseudo = String.valueOf(idCounter);
-            if(playerDao.findById(pseudo) == null)
+            if (playerDao.findById(pseudo) == null)
                 foundPseudoId = true;
         }
         return pseudo;
