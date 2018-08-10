@@ -1,5 +1,6 @@
 package deus.seow.de.fowtf.adapter;
 
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -7,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import java.util.List;
 
 import deus.seow.de.fowtf.Constants;
 import deus.seow.de.fowtf.R;
@@ -22,16 +25,16 @@ public class RoundAdapter extends BaseAdapter {
     private int tournamentId;
     private int round;
 
-    public RoundAdapter(Context context, int TournamentId, int round) {
+    public RoundAdapter(Context context, int tournamentId, int round) {
         duelDao = AppDatabase.getAppDatabase(context).duelDao();
         inflater = LayoutInflater.from(context);
-        tournamentId = TournamentId;
+        this.tournamentId = tournamentId;
         this.round = round;
     }
 
     @Override
     public int getCount() {
-        return duelDao.countDuels(tournamentId, round);
+        return duelDao.getRound(tournamentId, round).size();
     }
 
     @Override
@@ -67,28 +70,21 @@ public class RoundAdapter extends BaseAdapter {
                 String winner = duelDao.getRound(tournamentId, round).get(position).getWinner();
                 switch (winner) {
                     case Constants.DRAW:
-                        tvPlayer1.setBackgroundColor(Color.GREEN);
-                        tvPlayer2.setBackgroundColor(Color.RED);
                         winner = p1Id;
                         break;
                     case Constants.NO_PLAYER_WON:
-                        tvPlayer1.setBackgroundColor(Color.RED);
-                        tvPlayer2.setBackgroundColor(Color.GREEN);
                         winner = p2Id;
                         break;
                     default:
-                        if (winner.equals(p2Id)) {
+                        if (winner.equals(p2Id))
                             winner = Constants.NO_PLAYER_WON;
-                            tvPlayer1.setBackgroundColor(Color.WHITE);
-                            tvPlayer2.setBackgroundColor(Color.WHITE);
-                        } else {
+                        else
                             winner = Constants.DRAW;
-                            tvPlayer1.setBackgroundColor(Color.CYAN);
-                            tvPlayer2.setBackgroundColor(Color.CYAN);
-                        }
+
 
                 }
-                duelDao.insert(new Duel(tournamentId, round,p1Id, p2Id, winner));
+                duelDao.update(new Duel(tournamentId, round, p1Id, p2Id, winner));
+                notifyDataSetChanged();
             }
         });
         tvPlayer1.setOnClickListener(new View.OnClickListener() {
@@ -97,27 +93,20 @@ public class RoundAdapter extends BaseAdapter {
                 String winner = duelDao.getRound(tournamentId, round).get(position).getWinner();
                 switch (winner) {
                     case Constants.DRAW:
-                        tvPlayer1.setBackgroundColor(Color.RED);
-                        tvPlayer2.setBackgroundColor(Color.GREEN);
                         winner = p2Id;
                         break;
                     case Constants.NO_PLAYER_WON:
-                        tvPlayer1.setBackgroundColor(Color.GREEN);
-                        tvPlayer2.setBackgroundColor(Color.RED);
                         winner = p1Id;
                         break;
                     default:
-                        if (winner.equals(p1Id)) {
-                            tvPlayer1.setBackgroundColor(Color.WHITE);
-                            tvPlayer2.setBackgroundColor(Color.WHITE);
+                        if (winner.equals(p1Id))
                             winner = Constants.NO_PLAYER_WON;
-                        } else {
-                            tvPlayer1.setBackgroundColor(Color.CYAN);
-                            tvPlayer2.setBackgroundColor(Color.CYAN);
+                        else
                             winner = Constants.DRAW;
-                        }
+
                 }
-                duelDao.insert(new Duel(tournamentId, round,p1Id, p2Id, winner));
+                duelDao.update(new Duel(tournamentId, round, p1Id, p2Id, winner));
+                notifyDataSetChanged();
             }
         });
         String winner = duel.getWinner();

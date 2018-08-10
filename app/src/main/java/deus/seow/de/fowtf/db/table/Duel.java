@@ -2,9 +2,10 @@ package deus.seow.de.fowtf.db.table;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.support.annotation.NonNull;
 
-@Entity(tableName = "duel", primaryKeys = {"tournamentId","playerOneId", "playerTwoId"},
+@Entity(tableName = "duel", primaryKeys = {"tournamentId", "round","playerOneId", "playerTwoId"},
         foreignKeys = {@ForeignKey(entity = Player.class, parentColumns = "id",childColumns = "playerOneId"),
                 @ForeignKey(entity = Player.class, parentColumns = "id",childColumns = "playerTwoId"),
                 @ForeignKey(entity = Tournament.class, parentColumns = "id",childColumns = "tournamentId")}
@@ -50,5 +51,11 @@ public class Duel {
 
     public int getRound() {
         return round;
+    }
+
+    @Ignore
+    @Override
+    public String toString(){
+        return tournamentId + " "+round + " "+playerOneId+ " "+ playerTwoId + " " +winner;
     }
 }
