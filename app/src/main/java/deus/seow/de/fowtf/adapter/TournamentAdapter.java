@@ -56,7 +56,7 @@ public class TournamentAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentManager.beginTransaction().replace(R.id.fullscreenContainer, ResultFragment.newInstance(tournament.getId()),ResultFragment.TAG).commit();
+                fragmentManager.beginTransaction().replace(R.id.fullscreenContainer, ResultFragment.newInstance(tournament.getId()), ResultFragment.TAG).commit();
             }
         });
         return view;

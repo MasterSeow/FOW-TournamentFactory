@@ -10,6 +10,10 @@
     <string name="lastname">Lastname:</string>
     <string name="fow_id">FOW-ID:</string>
     <string name="missing_id">(no ID)</string>
+    <string name="show_results">Show results</string>
+    <string name="show_rounds">Show Rounds</string>
+    <string name="finish">Finish</string>
+    <string name="next">Next</string>
     <string-array name="tournamentType">
         <item>Local</item>
         <item>Regional</item>

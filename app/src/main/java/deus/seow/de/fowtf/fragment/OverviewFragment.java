@@ -26,6 +26,6 @@ public class OverviewFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ListView tournamentList = view.findViewById(R.id.list);
-        tournamentList.setAdapter(new TournamentAdapter(getContext(),getFragmentManager()));
+        tournamentList.setAdapter(new TournamentAdapter(getContext(), getFragmentManager()));
     }
 }

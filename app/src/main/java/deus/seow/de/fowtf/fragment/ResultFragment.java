@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
-import java.security.PublicKey;
-
 import deus.seow.de.fowtf.R;
 import deus.seow.de.fowtf.adapter.ResultAdapter;
 import deus.seow.de.fowtf.adapter.ResultRoundAdapter;
@@ -39,8 +37,8 @@ public class ResultFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        resultAdapter = new ResultAdapter(getContext(),tournamentId);
-        resultRoundAdapter = new ResultRoundAdapter(getContext(),tournamentId);
+        resultAdapter = new ResultAdapter(getContext(), tournamentId);
+        resultRoundAdapter = new ResultRoundAdapter(getContext(), tournamentId);
 
         final ListView list = view.findViewById(R.id.list);
         list.setAdapter(resultAdapter);
@@ -49,11 +47,11 @@ public class ResultFragment extends Fragment {
         switchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(list.getAdapter() == resultAdapter){
-                    switchView.setText("Show results");
+                if (list.getAdapter() == resultAdapter) {
+                    switchView.setText(R.string.show_results);
                     list.setAdapter(resultRoundAdapter);
-                }else{
-                    switchView.setText("Show Rounds");
+                } else {
+                    switchView.setText(R.string.show_rounds);
                     list.setAdapter(resultAdapter);
                 }
             }

@@ -21,6 +21,7 @@ public class Player {
         this.lastname = lastname;
     }
 
+    @NonNull
     public String getId() {
         return id;
     }

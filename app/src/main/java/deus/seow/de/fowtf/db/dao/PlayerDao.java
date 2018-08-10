@@ -10,6 +10,7 @@ import java.util.List;
 
 import deus.seow.de.fowtf.db.table.Player;
 
+@SuppressWarnings("unused")
 @Dao
 public interface PlayerDao {
 

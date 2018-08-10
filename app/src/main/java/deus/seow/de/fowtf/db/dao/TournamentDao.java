@@ -11,6 +11,7 @@ import java.util.List;
 import deus.seow.de.fowtf.db.table.Player;
 import deus.seow.de.fowtf.db.table.Tournament;
 
+@SuppressWarnings("unused")
 @Dao
 public interface TournamentDao {
 

@@ -28,14 +28,16 @@ public class MainFragment extends Fragment {
         newButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.fullscreenContainer, new CreationFragment(), CreationFragment.TAG).commit();
+                if (getFragmentManager() != null)
+                    getFragmentManager().beginTransaction().replace(R.id.fullscreenContainer, new CreationFragment(), CreationFragment.TAG).commit();
             }
         });
         Button overviewButton = view.findViewById(R.id.tournamentOverview);
         overviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.fullscreenContainer, new OverviewFragment(), OverviewFragment.TAG).commit();
+                if (getFragmentManager() != null)
+                    getFragmentManager().beginTransaction().replace(R.id.fullscreenContainer, new OverviewFragment(), OverviewFragment.TAG).commit();
             }
         });
     }

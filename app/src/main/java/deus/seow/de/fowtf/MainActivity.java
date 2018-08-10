@@ -37,20 +37,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK)
-        {   handleBackKey();
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            handleBackKey();
             return true;
-        }
-        else
-        return super.onKeyDown(keyCode, event);
+        } else
+            return super.onKeyDown(keyCode, event);
     }
 
     private void handleBackKey() {
-        if(fragmentManager.findFragmentByTag(CreationFragment.TAG) != null)
+        if (fragmentManager.findFragmentByTag(CreationFragment.TAG) != null)
             fragmentManager.beginTransaction().replace(R.id.fullscreenContainer, new MainFragment(), MainFragment.TAG).commit();
-        if(fragmentManager.findFragmentByTag(OverviewFragment.TAG) != null)
+        if (fragmentManager.findFragmentByTag(OverviewFragment.TAG) != null)
             fragmentManager.beginTransaction().replace(R.id.fullscreenContainer, new MainFragment(), MainFragment.TAG).commit();
-        if(fragmentManager.findFragmentByTag(ResultFragment.TAG) != null)
+        if (fragmentManager.findFragmentByTag(ResultFragment.TAG) != null)
             fragmentManager.beginTransaction().replace(R.id.fullscreenContainer, new OverviewFragment(), OverviewFragment.TAG).commit();
     }
 }

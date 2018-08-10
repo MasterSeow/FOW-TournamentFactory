@@ -67,16 +67,18 @@ public class CreationFragment extends Fragment {
         buttonNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new NewPlayerDialog().show(getFragmentManager(), NewPlayerDialog.TAG);
+                if (getFragmentManager() != null)
+                    new NewPlayerDialog().show(getFragmentManager(), NewPlayerDialog.TAG);
             }
         });
         dateText = view.findViewById(R.id.date);
         dateText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(getContext(), date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                if (getContext() != null)
+                    new DatePickerDialog(getContext(), date, myCalendar
+                            .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                            myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
         updateLabel(new Date(System.currentTimeMillis()));
@@ -106,10 +108,13 @@ public class CreationFragment extends Fragment {
         });
 
         final Spinner spinner = view.findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.tournamentType, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        ArrayAdapter<CharSequence> adapter;
+        if (getContext() != null) {
+            adapter = ArrayAdapter.createFromResource(getContext(),
+                    R.array.tournamentType, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter);
+        }
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -130,7 +135,8 @@ public class CreationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 tournamentDao.insert(new Tournament(type, dateString));
-                getFragmentManager().beginTransaction().replace(R.id.fullscreenContainer, RoundFragment.newInstance(tournamentDao.getLast().getId(), numberOfRounds, playerAdapter.getChosenPlayers()), RoundFragment.TAG).commit();
+                if (getFragmentManager() != null)
+                    getFragmentManager().beginTransaction().replace(R.id.fullscreenContainer, RoundFragment.newInstance(tournamentDao.getLast().getId(), numberOfRounds, playerAdapter.getChosenPlayers()), RoundFragment.TAG).commit();
             }
         });
     }

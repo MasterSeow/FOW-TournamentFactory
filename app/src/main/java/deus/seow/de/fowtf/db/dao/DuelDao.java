@@ -12,6 +12,7 @@ import java.util.List;
 import deus.seow.de.fowtf.db.table.Duel;
 import deus.seow.de.fowtf.db.table.Player;
 
+@SuppressWarnings("unused")
 @Dao
 public interface DuelDao {
 

@@ -62,7 +62,7 @@ public class RoundFragment extends Fragment {
         generateMatches(players);
 
         roundText = view.findViewById(R.id.round);
-        roundText.setText(String.format(Locale.getDefault(),"Round %d:", round));
+        roundText.setText(String.format(Locale.getDefault(), "Round %d:", round));
 
         roundAdapter = new RoundAdapter(getContext(), tournamentId, round);
 
@@ -71,7 +71,7 @@ public class RoundFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 round--;
-                roundText.setText(String.format(Locale.getDefault(),"Round %d:", round));
+                roundText.setText(String.format(Locale.getDefault(), "Round %d:", round));
                 roundAdapter.setRound(round);
                 updateButtons();
             }
@@ -83,7 +83,7 @@ public class RoundFragment extends Fragment {
                 int noResults = duelDao.countDuelsWithoutResult(tournamentId, round);
                 if (noResults == 0) {
                     round++;
-                    roundText.setText(String.format(Locale.getDefault(),"Round %d:", round));
+                    roundText.setText(String.format(Locale.getDefault(), "Round %d:", round));
                     generateRound();
                     roundAdapter.setRound(round);
                     updateButtons();
@@ -108,15 +108,15 @@ public class RoundFragment extends Fragment {
         else
             previous.setEnabled(false);
 
-        if (round < maxRounds){
-            next.setText("Next");
+        if (round < maxRounds) {
+            next.setText(R.string.next);
             next.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int noResults = duelDao.countDuelsWithoutResult(tournamentId, round);
                     if (noResults == 0) {
                         round++;
-                        roundText.setText(String.format(Locale.getDefault(),"Round %d:", round));
+                        roundText.setText(String.format(Locale.getDefault(), "Round %d:", round));
                         generateRound();
                         roundAdapter.setRound(round);
                         updateButtons();
@@ -125,13 +125,13 @@ public class RoundFragment extends Fragment {
                     }
                 }
             });
-        }
-        else{
-            next.setText("Finish");
+        } else {
+            next.setText(R.string.finish);
             next.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    getFragmentManager().beginTransaction().replace(R.id.fullscreenContainer,ResultFragment.newInstance(tournamentId),ResultFragment.TAG).commit();
+                    if (getFragmentManager() != null)
+                        getFragmentManager().beginTransaction().replace(R.id.fullscreenContainer, ResultFragment.newInstance(tournamentId), ResultFragment.TAG).commit();
                 }
             });
         }

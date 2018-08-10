@@ -6,6 +6,7 @@ import android.widget.BaseAdapter;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class ViewAdapter extends BaseAdapter {
 
     private List<View> views;
@@ -31,7 +32,7 @@ public class ViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        return (View)getItem(position);
+        return (View) getItem(position);
     }
 
     public void setViews(List<View> views) {

@@ -4,9 +4,4 @@ public class Constants {
 
     public static final String NO_PLAYER_WON = "none";
     public static final String DRAW = "draw";
-//    public static final String
-//    public static final String
-//    public static final String
-//    public static final String
-//    public static final String
 }

@@ -29,7 +29,7 @@ public class ResultRoundAdapter extends BaseAdapter {
     public ResultRoundAdapter(Context context, int tournamentId) {
         duelDao = AppDatabase.getAppDatabase(context).duelDao();
         inflater = LayoutInflater.from(context);
-        roundMarker =new ArrayList<>();
+        roundMarker = new ArrayList<>();
         this.tournamentId = tournamentId;
     }
 
@@ -61,16 +61,15 @@ public class ResultRoundAdapter extends BaseAdapter {
         final String p1Id = player1.getId();
 
         final TextView roundTitle = view.findViewById(R.id.roundTitle);
-        if(duel.getRound()>round)
-        {
+        if (duel.getRound() > round) {
             roundMarker.add(position);
             round++;
         }
-        if(roundMarker.contains(position))
+        if (roundMarker.contains(position))
             roundTitle.setVisibility(View.VISIBLE);
         else
             roundTitle.setVisibility(View.GONE);
-        roundTitle.setText("Round " + String.valueOf(duel.getRound())+":");
+        roundTitle.setText(String.format("Round %s:", String.valueOf(duel.getRound())));
 
         final TextView tvPlayer1 = view.findViewById(R.id.player1);
         tvPlayer1.setText(String.format("%s %s", player1.getFirstname(), player1.getLastname()));

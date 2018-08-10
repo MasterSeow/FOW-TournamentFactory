@@ -109,7 +109,8 @@ public class NewPlayerDialog extends DialogFragment {
 
                 AppDatabase.getAppDatabase(getContext()).userDao().insert(new Player(fowId, firstname, lastname));
                 System.out.println("saved new Player");
-                getFragmentManager().beginTransaction().remove(thisFragment).commit();
+                if (getFragmentManager() != null)
+                    getFragmentManager().beginTransaction().remove(thisFragment).commit();
 
             }
         });
@@ -135,6 +136,7 @@ public class NewPlayerDialog extends DialogFragment {
         return idPattern.matcher(fowId).matches() && AppDatabase.getAppDatabase(getContext()).userDao().findById(fowId) == null;
     }
 
+    @SuppressWarnings("all")
     private boolean validateName(String name) {
         Pattern namePattern = Pattern.compile("[a-zA-z]+([ '-][a-zA-Z]+)*");
         return namePattern.matcher(name).matches();

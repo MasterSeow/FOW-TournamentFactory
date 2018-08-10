@@ -37,10 +37,12 @@ public class Duel {
         return tournamentId;
     }
 
+    @NonNull
     public String getPlayerOneId() {
         return playerOneId;
     }
 
+    @NonNull
     public String getPlayerTwoId() {
         return playerTwoId;
     }

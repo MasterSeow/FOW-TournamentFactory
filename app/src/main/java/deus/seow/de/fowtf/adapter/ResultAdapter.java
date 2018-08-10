@@ -1,7 +1,6 @@
 package deus.seow.de.fowtf.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,11 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import deus.seow.de.fowtf.Constants;
 import deus.seow.de.fowtf.R;
 import deus.seow.de.fowtf.Util;
 import deus.seow.de.fowtf.db.AppDatabase;
 import deus.seow.de.fowtf.db.dao.DuelDao;
 import deus.seow.de.fowtf.db.dao.TournamentDao;
-import deus.seow.de.fowtf.db.table.Duel;
 import deus.seow.de.fowtf.db.table.Player;
 
 public class ResultAdapter extends BaseAdapter {
@@ -25,14 +22,14 @@ public class ResultAdapter extends BaseAdapter {
     private DuelDao duelDao;
     private LayoutInflater inflater;
     private int tournamentId;
-    List<Player> players;
+    private List<Player> players;
 
     public ResultAdapter(Context context, int tournamentId) {
         duelDao = AppDatabase.getAppDatabase(context).duelDao();
         TournamentDao tournamentDao = AppDatabase.getAppDatabase(context).tournamentDao();
         inflater = LayoutInflater.from(context);
         this.tournamentId = tournamentId;
-        players = Util.sortByTB(new CopyOnWriteArrayList<>(tournamentDao.getParticipants(tournamentId)),tournamentId,duelDao);
+        players = Util.sortByTB(new CopyOnWriteArrayList<>(tournamentDao.getParticipants(tournamentId)), tournamentId, duelDao);
     }
 
     @Override
@@ -58,11 +55,11 @@ public class ResultAdapter extends BaseAdapter {
         Player player = (Player) getItem(position);
 
         final TextView tvPlace = view.findViewById(R.id.place);
-        tvPlace.setText(String.format("%s.", String.valueOf(position+1)));
+        tvPlace.setText(String.format("%s.", String.valueOf(position + 1)));
         final TextView tvPlayer = view.findViewById(R.id.player);
         tvPlayer.setText(String.format("%s %s", player.getFirstname(), player.getLastname()));
         final TextView tvTB = view.findViewById(R.id.tiebreak);
-        tvTB.setText(Util.calculateTiebreak(player.getId(),tournamentId,duelDao));
+        tvTB.setText(Util.calculateTiebreak(player.getId(), tournamentId, duelDao));
 
         return view;
     }
