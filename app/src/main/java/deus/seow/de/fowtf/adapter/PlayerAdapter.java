@@ -49,16 +49,16 @@ public class PlayerAdapter extends BaseAdapter {
 
         final Player player = (Player) getItem(position);
 
-        TextView id = view.findViewById(R.id.fow_id);
+        final TextView id = view.findViewById(R.id.fow_id);
 
         if (player.getId().length() == 10)
             id.setText(player.getId());
         else {
             id.setText(R.string.missing_id);
         }
-        TextView firstname = view.findViewById(R.id.firstname);
+        final TextView firstname = view.findViewById(R.id.firstname);
         firstname.setText(player.getFirstname());
-        TextView lastname = view.findViewById(R.id.lastname);
+        final TextView lastname = view.findViewById(R.id.lastname);
         lastname.setText(player.getLastname());
 
         view.setOnClickListener(new View.OnClickListener() {
@@ -66,9 +66,15 @@ public class PlayerAdapter extends BaseAdapter {
             public void onClick(View v) {
                 if (chosenPlayers.contains(player)) {
                     chosenPlayers.remove(player);
-                    view.setBackgroundColor(Color.WHITE);
+                    firstname.setTextColor(Color.WHITE);
+                    id.setTextColor(Color.WHITE);
+                    lastname.setTextColor(Color.WHITE);
+                    view.setBackgroundColor(Color.BLACK);
                 } else {
                     chosenPlayers.add(player);
+                    firstname.setTextColor(Color.BLACK);
+                    lastname.setTextColor(Color.BLACK);
+                    id.setTextColor(Color.BLACK);
                     view.setBackgroundColor(Color.GREEN);
                 }
             }
@@ -77,7 +83,7 @@ public class PlayerAdapter extends BaseAdapter {
         if (chosenPlayers.contains(player))
             view.setBackgroundColor(Color.GREEN);
         else
-            view.setBackgroundColor(Color.WHITE);
+            view.setBackgroundColor(Color.BLACK);
 
         return view;
     }

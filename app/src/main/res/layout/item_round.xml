@@ -7,6 +7,7 @@
     <TextView
         android:id="@+id/roundTitle"
         android:gravity="center"
+        android:textColor="@color/colorSecondary"
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -14,16 +15,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorSecondary"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/player1"
+            android:textSize="20sp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            />
         <TextView
             android:id="@+id/player2"
+            android:textSize="20sp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />

@@ -27,12 +27,12 @@ public class MainActivity extends AppCompatActivity {
     private void createDummyData(AppDatabase appDatabase) {
         appDatabase.userDao().insert(new Player("1", "Frei", "Los"));
 
-        appDatabase.userDao().insert(new Player("10", "Seow", "Deus"));
-        appDatabase.userDao().insert(new Player("11", "Nico", "Fenchel"));
-        appDatabase.userDao().insert(new Player("12", "Jonathan", "Dante"));
-        appDatabase.userDao().insert(new Player("13", "Thomas", "Brunnen"));
-        appDatabase.userDao().insert(new Player("14", "Felix", "Weser"));
-        appDatabase.userDao().insert(new Player("15", "Vieh", "Tee"));
+//        appDatabase.userDao().insert(new Player("10", "Seow", "Deus"));
+//        appDatabase.userDao().insert(new Player("11", "Nico", "Fenchel"));
+//        appDatabase.userDao().insert(new Player("12", "Jonathan", "Dante"));
+//        appDatabase.userDao().insert(new Player("13", "Thomas", "Brunnen"));
+//        appDatabase.userDao().insert(new Player("14", "Felix", "Weser"));
+//        appDatabase.userDao().insert(new Player("15", "Vieh", "Tee"));
     }
 
     @Override

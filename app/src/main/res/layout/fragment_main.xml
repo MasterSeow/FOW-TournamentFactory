@@ -2,24 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
 
     <Button
         android:id="@+id/newTournament"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:layout_margin="20dp"
         android:background="@android:color/holo_green_dark"
         android:text="new" />
 
     <Button
         android:id="@+id/tournamentOverview"
         android:layout_width="match_parent"
+        android:layout_margin="20dp"
         android:layout_height="0dp"
         android:background="@android:color/holo_blue_dark"
         android:layout_weight="1"
