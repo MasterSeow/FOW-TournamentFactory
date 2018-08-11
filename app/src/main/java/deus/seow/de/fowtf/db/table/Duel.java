@@ -3,12 +3,15 @@ package deus.seow.de.fowtf.db.table;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.support.annotation.NonNull;
 
+import static android.arch.persistence.room.ForeignKey.CASCADE;
+
 @Entity(tableName = "duel", primaryKeys = {"tournamentId", "round", "playerOneId", "playerTwoId"},
-        foreignKeys = {@ForeignKey(entity = Player.class, parentColumns = "id", childColumns = "playerOneId"),
+        foreignKeys = {@ForeignKey(entity = Player.class, parentColumns = "id", childColumns = "playerOneId" ),
                 @ForeignKey(entity = Player.class, parentColumns = "id", childColumns = "playerTwoId"),
-                @ForeignKey(entity = Tournament.class, parentColumns = "id", childColumns = "tournamentId")}
+                @ForeignKey(entity = Tournament.class, parentColumns = "id", childColumns = "tournamentId",onDelete = CASCADE)}
 )
 public class Duel {
 

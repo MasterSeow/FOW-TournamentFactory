@@ -14,7 +14,7 @@ currently implemented :
 - result-screens
 
 future implementations :
-- editing entries afterwards which calculates everything new
+- editing entries afterwards
 - options for dropping and disqualified players 
 - option menus
 - backup mechanism

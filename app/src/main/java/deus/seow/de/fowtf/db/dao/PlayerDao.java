@@ -29,6 +29,9 @@ public interface PlayerDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Player player);
 
+    @Query("SELECT COUNT(*) FROM duel WHERE playerOneId = :playerId OR playerTwoId = :playerId")
+    int participatedDuelCount(String playerId);
+
     @Insert
     void insertAll(Player... players);
 

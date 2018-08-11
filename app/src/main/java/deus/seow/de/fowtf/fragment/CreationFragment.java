@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -135,9 +136,13 @@ public class CreationFragment extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tournamentDao.insert(new Tournament(type, dateString));
-                if (getFragmentManager() != null)
-                    getFragmentManager().beginTransaction().replace(R.id.fullscreenContainer, RoundFragment.newInstance(tournamentDao.getLast().getId(), numberOfRounds, playerAdapter.getChosenPlayers()), RoundFragment.TAG).commit();
+                if (playerAdapter.getChosenPlayers().size() > 0) {
+                    tournamentDao.insert(new Tournament(type, dateString));
+                    if (getFragmentManager() != null)
+                        getFragmentManager().beginTransaction().replace(R.id.fullscreenContainer, RoundFragment.newInstance(tournamentDao.getLast().getId(), numberOfRounds, playerAdapter.getChosenPlayers()), RoundFragment.TAG).commit();
+                } else {
+                    Toast.makeText(getContext(), "No Players selected", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
