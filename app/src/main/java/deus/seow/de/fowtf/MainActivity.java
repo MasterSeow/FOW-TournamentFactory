@@ -5,8 +5,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.provider.DocumentFile;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import deus.seow.de.fowtf.db.AppDatabase;
 import deus.seow.de.fowtf.db.table.Player;
@@ -51,21 +56,6 @@ public class MainActivity extends AppCompatActivity {
             return super.onKeyDown(keyCode, event);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_LOAD_PATH && resultCode == RESULT_OK && null != data) {
-
-            AppDatabase db = AppDatabase.getAppDatabase(this);
-            Uri uri = data.getData();
-            if (uri != null)
-                if (save)
-                    Backup.createDbBackupFile(uri, db);
-                else
-                    Backup.loadDbBackupFile(uri, db);
-        }
-    }
-
     private void handleBackKey() {
         if (fragmentManager.findFragmentByTag(CreationFragment.TAG) != null)
             fragmentManager.beginTransaction().replace(R.id.fullscreenContainer, new MainFragment(), MainFragment.TAG).commit();
@@ -81,8 +71,10 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case MY_WRITE_EXTERNAL_STORAGE:
 
-                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-                startActivityForResult(intent, RESULT_LOAD_PATH);
+                if (save)
+                    Backup.createDbBackupFile( AppDatabase.getAppDatabase(this));
+                else
+                    Backup.loadDbBackupFile( AppDatabase.getAppDatabase(this));
                 break;
         }
     }

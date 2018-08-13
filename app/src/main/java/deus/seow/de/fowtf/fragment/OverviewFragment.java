@@ -17,9 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import deus.seow.de.fowtf.Backup;
 import deus.seow.de.fowtf.MainActivity;
 import deus.seow.de.fowtf.R;
 import deus.seow.de.fowtf.adapter.TournamentAdapter;
+import deus.seow.de.fowtf.db.AppDatabase;
 
 public class OverviewFragment extends Fragment {
 
@@ -47,6 +49,7 @@ public class OverviewFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        AppDatabase db = AppDatabase.getAppDatabase(getContext());
         switch (item.getItemId()) {
             case R.id.backup_save:
                 MainActivity.save = true;
@@ -57,8 +60,7 @@ public class OverviewFragment extends Fragment {
                             new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                             MainActivity.MY_WRITE_EXTERNAL_STORAGE);
                 } else {
-                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-                    getActivity().startActivityForResult(intent, MainActivity.RESULT_LOAD_PATH);
+                        Backup.createDbBackupFile( db);
                 }
                 return true;
             case R.id.backup_load:
@@ -72,8 +74,7 @@ public class OverviewFragment extends Fragment {
                             MainActivity.MY_WRITE_EXTERNAL_STORAGE);
 
                 } else {
-                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-                    getActivity().startActivityForResult(intent, MainActivity.RESULT_LOAD_PATH);
+                        Backup.loadDbBackupFile( db);
                 }
                 return true;
             default:

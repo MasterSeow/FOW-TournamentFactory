@@ -1,6 +1,6 @@
 package deus.seow.de.fowtf;
 
-import android.net.Uri;
+import android.os.Environment;
 import android.util.Xml;
 
 import org.xmlpull.v1.XmlSerializer;
@@ -8,7 +8,6 @@ import org.xmlpull.v1.XmlSerializer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.List;
 
 import deus.seow.de.fowtf.db.AppDatabase;
@@ -18,22 +17,23 @@ import deus.seow.de.fowtf.db.table.Tournament;
 
 public class Backup {
 
-    public static void createDbBackupFile(Uri uri, AppDatabase db){
-        if(new File(uri.getPath()).isDirectory())
-            System.out.println("isDirectory");
-        File backupFile = new File(uri.getPath()+"/fow-tf-backup.xml");
-        System.out.println(backupFile.getAbsolutePath());
+    public static void createDbBackupFile( AppDatabase db){
+
+        File folder = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/FOWTF-BACKUPS");
+        folder.mkdirs();
+        File backupFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Download/fow-tf-backup.xml");
+        boolean success = !backupFile.exists();
+        int i = 0;
+        while(!success){
+            i++;
+            backupFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Download/fow-tf-backup("+i+").xml");
+            success = !backupFile.exists();
+        }
+
+
         List<Tournament> tournaments = db.tournamentDao().getAll();
         List<Player> players = db.playerDao().getAllInc();
         List<Duel> duels = db.duelDao().getAll();
-        if(backupFile.exists())
-            backupFile.delete();
-        try{
-            backupFile.createNewFile();
-        }catch(IOException e)
-        {
-           e.printStackTrace();
-        }
 
         FileOutputStream fileos = null;
         try{
@@ -80,6 +80,7 @@ public class Backup {
             serializer.endTag(null,"db");
             serializer.endDocument();
             serializer.flush();
+            fileos.flush();
             fileos.close();
 
         }catch(Exception e)
@@ -88,11 +89,11 @@ public class Backup {
         }
     }
 
-    public static void loadDbBackupFile(Uri uri, AppDatabase db){
-        File backupFile = new File(uri.getPath());
-        if(backupFile.exists() && backupFile.getName().equals("fow-tf-backup.xml")){
-            //TODO parse
-        }
+    public static void loadDbBackupFile(AppDatabase db){
+//        File backupFile = new File(uri.getPath());
+//        if(backupFile.exists() && backupFile.getName().equals("fow-tf-backup.xml")){
+//            //TODO parse
+//        }
 
     }
 }
