@@ -107,7 +107,7 @@ public class NewPlayerDialog extends DialogFragment {
                     return;
                 }
 
-                AppDatabase.getAppDatabase(getContext()).userDao().insert(new Player(fowId, firstname, lastname));
+                AppDatabase.getAppDatabase(getContext()).playerDao().insert(new Player(fowId, firstname, lastname));
                 System.out.println("saved new Player");
                 if (getFragmentManager() != null)
                     getFragmentManager().beginTransaction().remove(thisFragment).commit();
@@ -117,7 +117,7 @@ public class NewPlayerDialog extends DialogFragment {
     }
 
     private String generatePseudoId() {
-        PlayerDao playerDao = AppDatabase.getAppDatabase(getContext()).userDao();
+        PlayerDao playerDao = AppDatabase.getAppDatabase(getContext()).playerDao();
         String pseudo = "";
         boolean foundPseudoId = false;
         int idCounter = 3;
@@ -133,7 +133,7 @@ public class NewPlayerDialog extends DialogFragment {
     private boolean validateId(String fowId) {
         Pattern idPattern = Pattern.compile("\\p{Digit}{10}");
 
-        return idPattern.matcher(fowId).matches() && AppDatabase.getAppDatabase(getContext()).userDao().findById(fowId) == null;
+        return idPattern.matcher(fowId).matches() && AppDatabase.getAppDatabase(getContext()).playerDao().findById(fowId) == null;
     }
 
     @SuppressWarnings("all")

@@ -17,6 +17,9 @@ public interface PlayerDao {
     @Query("SELECT * FROM Player WHERE NOT id = '1'")
     List<Player> getAll();
 
+    @Query("SELECT * FROM Player")
+    List<Player> getAllInc();
+
     @Query("SELECT * FROM Player ORDER BY id DESC LIMIT 1")
     Player getLast();
 

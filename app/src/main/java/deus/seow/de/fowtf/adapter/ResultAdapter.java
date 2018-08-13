@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import deus.seow.de.fowtf.R;
-import deus.seow.de.fowtf.Util;
+import deus.seow.de.fowtf.Tiebreak;
 import deus.seow.de.fowtf.db.AppDatabase;
 import deus.seow.de.fowtf.db.dao.DuelDao;
 import deus.seow.de.fowtf.db.dao.TournamentDao;
@@ -29,7 +29,7 @@ public class ResultAdapter extends BaseAdapter {
         TournamentDao tournamentDao = AppDatabase.getAppDatabase(context).tournamentDao();
         inflater = LayoutInflater.from(context);
         this.tournamentId = tournamentId;
-        players = Util.sortByTB(new CopyOnWriteArrayList<>(tournamentDao.getParticipants(tournamentId)), tournamentId, duelDao);
+        players = Tiebreak.sortByTB(new CopyOnWriteArrayList<>(tournamentDao.getParticipants(tournamentId)), tournamentId, duelDao);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class ResultAdapter extends BaseAdapter {
         final TextView tvPlayer = view.findViewById(R.id.player);
         tvPlayer.setText(String.format("%s %s", player.getFirstname(), player.getLastname()));
         final TextView tvTB = view.findViewById(R.id.tiebreak);
-        tvTB.setText(Util.calculateTiebreak(player.getId(), tournamentId, duelDao));
+        tvTB.setText(Tiebreak.calculateTiebreak(player.getId(), tournamentId, duelDao));
 
         return view;
     }

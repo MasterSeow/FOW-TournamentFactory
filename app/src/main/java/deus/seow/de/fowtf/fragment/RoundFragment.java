@@ -20,7 +20,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import deus.seow.de.fowtf.Constants;
 import deus.seow.de.fowtf.R;
-import deus.seow.de.fowtf.Util;
+import deus.seow.de.fowtf.Tiebreak;
 import deus.seow.de.fowtf.adapter.RoundAdapter;
 import deus.seow.de.fowtf.db.AppDatabase;
 import deus.seow.de.fowtf.db.dao.DuelDao;
@@ -99,7 +99,7 @@ public class RoundFragment extends Fragment {
 
     private void generateRound() {
         if (duelDao.getRoundCount(tournamentId) < round)
-            generateMatches(Util.sortByTB(new CopyOnWriteArrayList<>(players), tournamentId, duelDao));
+            generateMatches(Tiebreak.sortByTB(new CopyOnWriteArrayList<>(players), tournamentId, duelDao));
     }
 
     private void updateButtons() {

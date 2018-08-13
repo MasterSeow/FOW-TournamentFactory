@@ -34,7 +34,7 @@ public abstract class AppDatabase extends RoomDatabase {
         INSTANCE = null;
     }
 
-    public abstract PlayerDao userDao();
+    public abstract PlayerDao playerDao();
 
     public abstract DuelDao duelDao();
 
