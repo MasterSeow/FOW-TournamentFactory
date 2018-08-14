@@ -141,7 +141,7 @@ public class CreationFragment extends Fragment {
                     if (getFragmentManager() != null)
                         getFragmentManager().beginTransaction().replace(R.id.fullscreenContainer, RoundFragment.newInstance(tournamentDao.getLast().getId(), numberOfRounds, playerAdapter.getChosenPlayers()), RoundFragment.TAG).commit();
                 } else {
-                    Toast.makeText(getContext(), "No Players selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.no_players_selected, Toast.LENGTH_SHORT).show();
                 }
             }
         });

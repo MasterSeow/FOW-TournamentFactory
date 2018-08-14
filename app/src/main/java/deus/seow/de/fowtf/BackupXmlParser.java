@@ -51,11 +51,9 @@ final class BackupXmlParser {
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(fis, null);
             parser.nextTag();
-            System.out.println("start parsing");
             switch (parser.getName()) {
                 case TAG_DB:
                     readDb(parser, db);
-                    System.out.println("finish parsing");
                     break;
                 default:
                     throw new XmlPullParserException("unknown root tag discovered: " + parser.getName());

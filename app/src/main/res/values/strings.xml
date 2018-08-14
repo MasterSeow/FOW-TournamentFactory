@@ -15,6 +15,7 @@
     <string name="finish">Finish</string>
     <string name="next">Next</string>
     <string name="previous">previous</string>
+    <string name="no_players_selected">No Players selected</string>
     <string-array name="tournamentType">
         <item>Local</item>
         <item>Regional</item>
