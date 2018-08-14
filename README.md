@@ -12,8 +12,8 @@ currently implemented :
 - tournament-overview
 - tiebreak-calculation
 - result-screens
+- backup mechanism
+- option menus
 
 future implementations :
 - options for dropping and disqualified players 
-- option menus
-- backup mechanism
