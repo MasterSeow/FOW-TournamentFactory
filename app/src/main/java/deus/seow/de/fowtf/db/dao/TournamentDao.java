@@ -33,8 +33,8 @@ public interface TournamentDao {
     @Query("SELECT id,firstname,lastname FROM duel LEFT JOIN player ON playerOneId = id WHERE tournamentId = :tournamentId AND NOT playerOneId = '1' AND round = 1 UNION SELECT id,firstname,lastname FROM duel LEFT JOIN player ON playerTwoId = id WHERE tournamentId = :tournamentId AND round = 1  AND NOT playerTwoId = '1'")
     List<Player> getParticipants(int tournamentId);
 
-    @Insert
-    void insertAll(Tournament... tournaments);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAll(List<Tournament> tournaments);
 
     @Delete
     void delete(Tournament tournament);

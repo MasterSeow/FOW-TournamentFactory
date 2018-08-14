@@ -31,8 +31,8 @@ public interface DuelDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Duel duel);
 
-    @Insert
-    void insertAll(Duel... duels);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAll(List<Duel> duels);
 
     @Delete
     void delete(Duel duel);
