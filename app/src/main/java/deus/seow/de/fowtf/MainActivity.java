@@ -79,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK && data.getData() != null) {
                     String filePath = data.getData().getPath();
                     Backup.loadDbBackupFile("/" + filePath.split(":")[1], AppDatabase.getAppDatabase(this));
+                    if (fragmentManager.findFragmentByTag(OverviewFragment.TAG) != null)
+                        ((OverviewFragment)fragmentManager.findFragmentByTag(OverviewFragment.TAG)).onBackupLoaded();
                 }
                 break;
             case RESULT_SAVE_PATH:

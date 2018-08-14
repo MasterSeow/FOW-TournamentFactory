@@ -27,6 +27,8 @@ public class OverviewFragment extends Fragment {
 
     public static final String TAG = OverviewFragment.class.getSimpleName();
 
+    private TournamentAdapter tournamentAdapter;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,7 +40,8 @@ public class OverviewFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
         ListView tournamentList = view.findViewById(R.id.list);
-        tournamentList.setAdapter(new TournamentAdapter(getContext(), getFragmentManager()));
+        tournamentAdapter = new TournamentAdapter(getContext(), getFragmentManager());
+        tournamentList.setAdapter(tournamentAdapter);
     }
 
     @Override
@@ -88,5 +91,9 @@ public class OverviewFragment extends Fragment {
                     return super.onOptionsItemSelected(item);
             }
         else return super.onOptionsItemSelected(item);
+    }
+
+    public void onBackupLoaded(){
+        tournamentAdapter.notifyDataSetChanged();
     }
 }
