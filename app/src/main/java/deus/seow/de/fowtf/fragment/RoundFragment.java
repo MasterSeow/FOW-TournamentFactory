@@ -1,5 +1,6 @@
 package deus.seow.de.fowtf.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,10 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import deus.seow.de.fowtf.Constants;
@@ -130,8 +128,30 @@ public class RoundFragment extends Fragment {
             next.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (getFragmentManager() != null)
-                        getFragmentManager().beginTransaction().replace(R.id.fullscreenContainer, ResultFragment.newInstance(tournamentId), ResultFragment.TAG).commit();
+                    android.support.v7.app.AlertDialog.Builder alert = new android.support.v7.app.AlertDialog.Builder(
+                            Objects.requireNonNull(getContext()));
+                    alert.setTitle("Attention!");
+                    alert.setMessage("You are about to finish the tournament and see results. Continue?");
+                    alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            if (getFragmentManager() != null)
+                                getFragmentManager().beginTransaction().replace(R.id.fullscreenContainer, ResultFragment.newInstance(tournamentId), ResultFragment.TAG).commit();
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+
+                    alert.show();
                 }
             });
         }
