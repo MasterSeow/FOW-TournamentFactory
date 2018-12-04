@@ -17,3 +17,4 @@ currently implemented :
 
 future implementations :
 - options for dropping and disqualified players 
+- prevent rematches
